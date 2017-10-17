@@ -4,14 +4,12 @@ const db = require('../index');
 const Student = db.define('student', {
   name: {
     type: Sequelize.STRING,
-    validate: {
-      notNull: true
-    }
+    allowNull: false
   },
   email: {
     type: Sequelize.TEXT,
+    allowNull: false,
     validate: {
-      notNull: true,
       isEmail: true
     }
   }
