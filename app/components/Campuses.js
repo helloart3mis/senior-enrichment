@@ -1,13 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
-export default class Campuses extends Component {
+function Campuses(props) {
 
-  render() {
-    return (
-      <nav>
-        <h3>Your Home which is Campus by default</h3>
-      </nav>
-    )
-  }
+
+  return (
+    <div>
+      <h3>Here Are Your Campuses</h3>
+      <ul>
+        {
+          props.campuses.map(campus => {
+            return (
+              <li key={campus.id}>
+                <NavLink to={`/campus/${campus.id}`}>
+                  {campus.name}
+                </NavLink>
+              </li>
+            )
+          })
+        }
+      </ul>
+    </div>
+  )
 
 }
+
+//CONTAINER
+
+const mapStateToProps = (state) => {
+  return {
+    campuses: state.campuses
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(Campuses))

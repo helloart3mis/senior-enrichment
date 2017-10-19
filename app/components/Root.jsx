@@ -5,9 +5,19 @@ import Campuses from './Campuses';
 import SingleCampus from './SingleCampus';
 import Student from './Student';
 import SingleStudent from './SingleStudent';
+// import { connect } from 'react-redux';
+import { fetchCampuses } from '../reducers/campuses';
+// import { withRouter } from 'react-router';
+import store from '../store';
 
 
 export default class Root extends Component {
+
+  componentDidMount() {
+    const campusesThunk = fetchCampuses();
+    store.dispatch(campusesThunk);
+  }
+
 
   render() {
     return (
@@ -26,3 +36,16 @@ export default class Root extends Component {
     )
   }
 }
+
+//CONTAINER
+
+// const mapProps = null;
+
+// const mapDispatch = dispatch => ({
+//   fetchInitialData: () => {
+//     dispatch(fetchCampuses());
+//     // dispatch(); this is for users
+//   }
+// });
+
+// export default withRouter(connect(mapProps, mapDispatch)(Root));
