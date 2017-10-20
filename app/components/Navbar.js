@@ -6,7 +6,7 @@ export default class Navbar extends Component {
   render() {
     return (
       <div>
-        <h3>Your Navbar</h3>
+        <h3>Wizard School</h3>
         <button>
           <NavLink to={'/campus'}>
             Campuses

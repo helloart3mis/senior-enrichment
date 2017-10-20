@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { removeStudent } from '../reducers/student'
 
 function Student(props) {
 
@@ -13,11 +14,14 @@ function Student(props) {
         {
           props.students.map(student => {
             return (
-              <li key={student.id}>
-                <NavLink to={`/student/${student.id}`}>
-                  {student.name}
-                </NavLink>
-              </li>
+              <div>
+                <li key={student.id}>
+                  <NavLink to={`/student/${student.id}`}>
+                    {student.name}
+                  </NavLink>
+                </li>
+                <button onClick={event => props.removeStudentFunc(student.id)}>Delete Student</button>
+              </div>
             )
           })
         }
@@ -40,4 +44,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Student))
+const mapStateToDispatch = (dispatch) => {
+  return {
+    removeStudentFunc: function (student) {
+      dispatch(removeStudent(student))
+    }
+  }
+};
+
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(Student))

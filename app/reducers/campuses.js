@@ -22,6 +22,8 @@ export default function reducer(campuses = [], action) {
       return action.campuses;
 
     case CREATE:
+      // adding students to my campus here is probably wrong, but it works!
+      action.campus.students = []
       return [...campuses, action.campus];
 
     case CREATE_STUDENT:
@@ -43,7 +45,7 @@ export default function reducer(campuses = [], action) {
           return action.id !== student.id
         })
         return campus
-      }); //look to see if student belongs to campus, return campus without student
+      });
 
     case UPDATE:
       return campuses.map(campus => (
