@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 function SingleCampus(props) {
 
   var found = props.campuses.find(campus => campus.id === +props.match.params.id)
-  // console.log("CAMPUS ---->", props.campuses);
-  // console.log("FOUND ---->", found);
-  // if (!found) {
-  //   return <div>what</div>
-  // }
+  console.log("FOUND ====", found)
+
   return (
     <div>
       <h3>{found.name}</h3>
@@ -17,7 +15,11 @@ function SingleCampus(props) {
         {
           found.students.map(student => {
             return (
-              <li key={student.id}>{student.name}</li>
+              <li key={student.id}>
+                <NavLink to={`/student/${student.id}`}>
+                  {student.name}
+                </NavLink>
+              </li>
             )
           })
         }

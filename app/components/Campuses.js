@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { removeCampus } from '../reducers/campuses'
 
 function Campuses(props) {
 
@@ -13,15 +14,23 @@ function Campuses(props) {
         {
           props.campuses.map(campus => {
             return (
-              <li key={campus.id}>
-                <NavLink to={`/campus/${campus.id}`}>
-                  {campus.name}
-                </NavLink>
-              </li>
+              <div>
+                <li key={campus.id}>
+                  <NavLink to={`/campus/${campus.id}`}>
+                    {campus.name}
+                  </NavLink>
+                </li>
+                <button onClick={event => props.removeCampusFunc(campus.id)}>Delete School</button>
+              </div>
             )
           })
         }
       </ul>
+      <button>
+        <NavLink to={'/newCampus'}>
+          Add Campus
+          </NavLink>
+      </button>
     </div>
   )
 
@@ -35,4 +44,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Campuses))
+const mapStateToDispatch = (dispatch) => {
+  return {
+    removeCampusFunc: function (campus) {
+      dispatch(removeCampus(campus))
+    }
+  }
+};
+
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(Campuses))

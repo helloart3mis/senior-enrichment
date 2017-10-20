@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //ACTION TYPES
 const INITIALIZE = 'INITIALIZE_STUDENTS';
-const CREATE = 'CREATE_STUDENT';
+export const CREATE = 'CREATE_STUDENT';
 export const REMOVE = 'REMOVE_STUDENT';
 const UPDATE = 'UPDATE_STUDENT';
 
@@ -20,7 +20,7 @@ export default function reducer(students = [], action) {
       return action.students;
 
     case CREATE:
-      return [action.student, ...students];
+      return [...students, action.student];
 
     case REMOVE:
       return students.filter(student => student.id !== action.id);

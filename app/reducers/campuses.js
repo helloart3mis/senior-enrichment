@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { REMOVE as REMOVE_STUDENT } from './student';
+import { REMOVE as REMOVE_STUDENT, CREATE as CREATE_STUDENT } from './student';
+
 
 //ACTION TYPES
 const INITIALIZE = 'INITIALIZE_CAMPUS';
@@ -21,7 +22,17 @@ export default function reducer(campuses = [], action) {
       return action.campuses;
 
     case CREATE:
-      return [action.campus, ...campuses];
+      return [...campuses, action.campus];
+
+    case CREATE_STUDENT:
+      return campuses.map(campus => {
+        if (campus.id === action.student.campusId) {
+          campus.students.push(action.student)
+          return campus
+        } else {
+          return campus
+        }
+      })
 
     case REMOVE:
       return campuses.filter(campus => campus.id !== action.id);
